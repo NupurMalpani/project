@@ -1,5 +1,3 @@
-
-
 #ifndef _BITIO_H
 #define _BITIO_H
 
@@ -40,5 +38,3 @@ void          FilePrintBinary();
 #endif  /* __STDC__ */
 
 #endif  /* _BITIO_H */
-
-
