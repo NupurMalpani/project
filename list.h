@@ -13,3 +13,4 @@ typedef struct list {
 void init(list *l);
 void insert(list *l,node *tmp);
 node *removal(list *l);
+void printlist(list l);
