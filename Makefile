@@ -1,6 +1,6 @@
 project:
 	cc *.h
 	cc *.c -c
-	cc *.o -o project.o -lm
+	cc *.o -o project -lm
 	
 	
