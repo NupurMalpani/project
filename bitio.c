@@ -1,3 +1,10 @@
+/************************** Start of BITIO.C *************************
+ *
+ * This utility file contains all of the routines needed to impement
+ * bit oriented routines under either ANSI or K&R C.  It needs to be
+ * linked with every program used in the entire book.Mark Nelson
+ *
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include "bitio.h"
@@ -101,8 +108,8 @@ BIT_FILE *bit_file;
 
     if ( bit_file->mask == 0x80 ) {
         bit_file->rack = getc( bit_file->file );
-        if ( bit_file->rack == EOF )
-            fatal_error( "Fatal error in InputBit!\n" );
+       if ( bit_file->rack == EOF )
+          fatal_error( "Fatal error in InputBit!\n" );
     if ( ( bit_file->pacifier_counter++ & PACIFIER_COUNT ) == 0 )
 	    putc( '.', stdout );
     }
@@ -156,3 +163,6 @@ int bits;
         mask >>= 1;
     }
 }
+
+/*************************** End of BITIO.C **************************/
+

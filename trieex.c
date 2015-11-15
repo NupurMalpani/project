@@ -1,7 +1,22 @@
+/*Copyright (C) 2015  Nupur Malpani
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include <stdio.h>
 #include"trieex.h"
 #include<string.h> /*size of level*/
-void rev(char *str){
+void reverse(char *str){
 	int i,j,c;
 	for( i = 0, j = strlen(str) - 1; i < j; i++, j--){
 		c = str[i];
@@ -10,18 +25,18 @@ void rev(char *str){
 	}
 
 }
-void inittl(triex *l){
+void inittlx(triex *l){
 	*l = NULL;
 }	
-trienode* createnode(){
+triexnode* createnodex(){
 	int i = 0;
-	trienode *z = (trienode*)malloc(sizeof(trienode));
-    	for(i = 0;i < SIZE;i++)
+	triexnode *z = (triexnode*)malloc(sizeof(triexnode));
+    	for(i = 0;i < SIZEX;i++)
         	z->children[i] = NULL;
     	z->value = NULL;
     	return z;
 }
-result converttostring(size_t key){
+resultx converttostring(size_t key){
 	size_t t = key;
 	int i = 0;
 	while(t){
@@ -36,8 +51,8 @@ result converttostring(size_t key){
 		i++;
 	}
 	z[ i + 1] = '\0';
-	rev(z);
-	result m;
+	reverse(z);
+	resultx m;
 	m.str = z;
 	m.level = i; 
 	return m;
@@ -45,40 +60,39 @@ result converttostring(size_t key){
 void inserttriex(triex *l,size_t key,char *value){
 	int level = 0;
 	int index;	
-	result m = converttostring(key);
+	resultx m = converttostring(key);
 	int length = m.level;
 	char *str = m.str;
 	char *temp = (char*)malloc(strlen(value) + 1);
 	strcpy(temp,value);
 	if(*l == NULL)
-		*l = createnode();
-	trienode *prev = *l;
+		*l = createnodex();
+	triexnode *prev = *l;
 	for(;level < length; level++){
 		index = str[level] - '0';
 		if(prev->children[index] == NULL)
-			prev->children[index] = createnode();
+			prev->children[index] = createnodex();
 		prev = prev->children[index];
 	}
 	prev->value = temp;
 }
 void initlzw(triex *l){
-	inittl(l);
+	inittlx(l);
 	int i;
 	char c[2];
 	for(i = 0; i < 256 ; i++){
 		c[0] = i;
 		c[1] = '\0';
 		inserttriex(l,i,c);
-//		if((*l)[7].children)
-//		printf("%u%d in here",&((*l)[7].children) , i);		 
+		 
 	} 
 }
 /*we find the number of levels needed and convert it to string so that we can get a digit at a time*/
 char *searchtriex(size_t key,triex *l){
 	int level = 0;
 	int index;	
-	trienode *prev = *l;
-	result m = converttostring(key);
+	triexnode *prev = *l;
+	resultx m = converttostring(key);
 	int length = m.level;
 	char *str = m.str;
 	for(;level < length; level++){
@@ -92,19 +106,6 @@ char *searchtriex(size_t key,triex *l){
 		return prev->value;
 	return NULL; 
 }
-/*struct node *q = root;
-    int length = strlen(key);
-    int level = 0;
-    for(;level < length;level++) {
-        int index = key&#91;level&#93; - 'a';
-        if(q->link[index] != NULL)
-            q = q->link[index];
-        else
-            break;
-    }
-    if(key[level] == '\0' && q->data != -1)
-        return q->data;
-    return -1;
-*/
+
 
 

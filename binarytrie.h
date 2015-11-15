@@ -13,19 +13,17 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include"trielist.h"
-typedef struct result{
-	union data{
-		trienode* last;
-		int value;
-	}d;
-	int found;
-	int level;
-}result;
-typedef struct trienode *trie;
+/*binary trie implementation using array for huffman coding*/
+#include<stdio.h>
+#include<stdlib.h>
+#include<limits.h>
+#define SIZE 2
+typedef struct btrienode {
+	int value;
+	struct btrienode* children[SIZE];
+ }btrienode;
+typedef struct btrienode *btrie;
+void initbt(btrie *l);
+void insertbt(btrie *l,char *key,int value);
+int searchbt(char* key,btrie *l);
 
-void add(char *tn,trie *t);/*given  a node insert in the trie*/
-void inittrie(trie *t);/*intialize a trie*/
-void printtrie(trie t);/*prints it levelwise*/
-result *searchintrie(char *m, trie *root);/*search in tree if not found returns the address of last node matched*/
-int present(char *m,trie *t);

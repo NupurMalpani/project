@@ -13,19 +13,23 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include"trielist.h"
-typedef struct result{
-	union data{
-		trienode* last;
-		int value;
-	}d;
-	int found;
+#include<stdlib.h>
+#include<stdio.h>
+#include<limits.h>
+#define SIZEX 10
+typedef struct triexnode {
+	char* value;
+	struct triexnode* children[SIZEX];
+ }triexnode;
+typedef struct resultx{
+	char *str;
 	int level;
-}result;
-typedef struct trienode *trie;
+}resultx;
+typedef struct triexnode *triex;
+void inittlx(triex *l);
+void inserttriex(triex *l,size_t key,char *value);
+char *searchtriex(size_t key, triex *l);
+void initlzw(triex *l);
 
-void add(char *tn,trie *t);/*given  a node insert in the trie*/
-void inittrie(trie *t);/*intialize a trie*/
-void printtrie(trie t);/*prints it levelwise*/
-result *searchintrie(char *m, trie *root);/*search in tree if not found returns the address of last node matched*/
-int present(char *m,trie *t);
+
+
